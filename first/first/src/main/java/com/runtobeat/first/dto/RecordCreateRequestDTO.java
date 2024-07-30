@@ -12,8 +12,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class RecordRequestDTO {
-    private Long recordId;
+public class RecordCreateRequestDTO {
     private Long memberId;
     private Double runningDistance;
     @JsonFormat(pattern = "HH:mm:ss")
@@ -22,13 +21,4 @@ public class RecordRequestDTO {
     private LocalDate recordDate;
     private Double recordPace;
     private Long runningStep;
-
-    public RecordRequestDTO(Long memberId, Double runningDistance, LocalTime runningTime, LocalDate recordDate, Double recordPace, Long runningStep) {
-        this.memberId = memberId;
-        this.runningDistance = runningDistance;
-        this.runningTime = runningTime;
-        this.recordDate = recordDate;
-        this.recordPace = recordPace;
-        this.runningStep = runningStep;
-    }
 }

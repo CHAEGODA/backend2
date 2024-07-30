@@ -2,6 +2,7 @@ package com.runtobeat.first.controller;
 
 import com.runtobeat.first.dto.MemberRequestDTO;
 import com.runtobeat.first.dto.MemberResponseDTO;
+import com.runtobeat.first.dto.RecordCreateRequestDTO;
 import com.runtobeat.first.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,8 @@ public class MemberController {
     }
 
     @PutMapping("/{memberId}")
-    public ResponseEntity<MemberResponseDTO> updateMember(@PathVariable Long memberId, @RequestBody MemberRequestDTO memberRequestDTO) {
-        MemberResponseDTO memberResponseDTO = memberService.updateMember(memberId, memberRequestDTO);
+    public ResponseEntity<MemberResponseDTO> updateMemberRecord(@PathVariable Long memberId, @RequestBody RecordCreateRequestDTO recordcreateRequestDTO) {
+        MemberResponseDTO memberResponseDTO = memberService.updateMember(memberId, recordcreateRequestDTO);
         return ResponseEntity.ok(memberResponseDTO);
     }
 

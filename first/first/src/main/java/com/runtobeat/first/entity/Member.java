@@ -29,4 +29,10 @@ public class Member {
         this.totalTime = totalTime;
         this.avgPace = avgPace;
     }
+
+    public Member(Double totalDistance, LocalTime totalTime, Double avgPace) {
+        this.totalDistance = totalDistance;
+        this.totalTime = totalTime;
+        this.avgPace = avgPace;
+    }
 }

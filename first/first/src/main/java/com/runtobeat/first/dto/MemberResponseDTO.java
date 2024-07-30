@@ -23,4 +23,10 @@ public class MemberResponseDTO {
         this.totalTime = totalTime;
         this.avgPace = avgPace;
     }
+
+    public MemberResponseDTO(Double totalDistance, LocalTime totalTime, Double avgPace) {
+        this.totalDistance = totalDistance;
+        this.totalTime = totalTime;
+        this.avgPace = avgPace;
+    }
 }

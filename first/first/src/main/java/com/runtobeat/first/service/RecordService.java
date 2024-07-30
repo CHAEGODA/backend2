@@ -1,7 +1,7 @@
 package com.runtobeat.first.service;
 
+import com.runtobeat.first.dto.RecordCreateRequestDTO;
 import com.runtobeat.first.dto.TodayRankingResponseDTO;
-import com.runtobeat.first.dto.RecordRequestDTO;
 import com.runtobeat.first.dto.RecordResponseDTO;
 import com.runtobeat.first.entity.Record;
 import com.runtobeat.first.repository.RecordJDBCRepository;
@@ -24,19 +24,19 @@ public class RecordService {
 
     private final RecordJDBCRepository recordJDBCRepository;
 
-    public RecordResponseDTO createRecord(RecordRequestDTO recordRequestDTO) {
+    public RecordResponseDTO createRecord(RecordCreateRequestDTO recordcreateRequestDTO) {
         Record record = new Record(
-                memberService.getMemberEntity(recordRequestDTO.getMemberId()),
-                recordRequestDTO.getRunningDistance(),
-                recordRequestDTO.getRunningTime(),
-                recordRequestDTO.getRecordDate(),
-                recordRequestDTO.getRecordPace(),
-                recordRequestDTO.getRunningStep()
+                memberService.getMemberEntity(recordcreateRequestDTO.getMemberId()),
+                recordcreateRequestDTO.getRunningDistance(),
+                recordcreateRequestDTO.getRunningTime(),
+                recordcreateRequestDTO.getRecordDate(),
+                recordcreateRequestDTO.getRecordPace(),
+                recordcreateRequestDTO.getRunningStep()
         );
 
         Record savedRecord = recordRepository.save(record);
         // member 업데이트
-        memberService.updateMemberRunningInfo(savedRecord) ;
+        memberService.updateMember(record.getMember().getMemberId(), recordcreateRequestDTO) ;
         //daily 업데이트
         dailyRecordService.updateDailyRecord(savedRecord);
         // weekly 업데이트
@@ -57,15 +57,15 @@ public class RecordService {
                 .collect(Collectors.toList());
     }
 
-    public RecordResponseDTO updateRecord(Long id, RecordRequestDTO recordRequestDTO) {
+    public RecordResponseDTO updateRecord(Long id, RecordCreateRequestDTO recordcreateRequestDTO) {
         Record record = recordRepository.findById(id).orElseThrow(() -> new RuntimeException("Record not found"));
 
-        record.setMember(memberService.getMemberEntity(recordRequestDTO.getMemberId()));
-        record.setRunningDistance(recordRequestDTO.getRunningDistance());
-        record.setRunningTime(recordRequestDTO.getRunningTime());
-        record.setRunningStep(recordRequestDTO.getRunningStep());
-        record.setRecordDate(recordRequestDTO.getRecordDate());
-        record.setRecordPace(recordRequestDTO.getRecordPace());
+        record.setMember(memberService.getMemberEntity(recordcreateRequestDTO.getMemberId()));
+        record.setRunningDistance(recordcreateRequestDTO.getRunningDistance());
+        record.setRunningTime(recordcreateRequestDTO.getRunningTime());
+        record.setRunningStep(recordcreateRequestDTO.getRunningStep());
+        record.setRecordDate(recordcreateRequestDTO.getRecordDate());
+        record.setRecordPace(recordcreateRequestDTO.getRecordPace());
 
         Record updatedRecord = recordRepository.save(record);
         return convertToResponseDTO(updatedRecord);
